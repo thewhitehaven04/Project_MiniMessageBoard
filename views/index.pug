@@ -1,0 +1,12 @@
+doctype
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title=title
+    style
+      include styles/globals.css
+  body
+    div.flex-column
+      each message in messages 
+        h1= message.text + ',\n' + message.user
+        span Its currently #{message.added}

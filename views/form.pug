@@ -1,0 +1,15 @@
+doctype
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    title Form
+    style
+      include styles/globals.css 
+  body
+    p Generic form
+    form.column-flex(action="new", method="post") 
+      label.flex-row Greeting 
+        input(type="text", name="text")
+      label.flex-row Author  
+        input(type="text", name="author")
+      button(type="submit") Submit form
