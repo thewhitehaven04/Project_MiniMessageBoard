@@ -6,7 +6,14 @@ html(lang='en')
     style
       include styles/globals.css
   body
-    div.flex-column
-      each message in messages 
-        h1= message.text + ',\n' + message.user
-        span Its currently #{message.added}
+    h1 Mesagges list
+    ul.column-flex
+      if (messages.length) 
+        each message in messages 
+          li 
+            div.column-flex
+              span "Poster: #{message.author}"  
+              p= message.messageText
+              span Sent: #{message.added}
+      else
+        span No messages yet.

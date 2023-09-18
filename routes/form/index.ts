@@ -1,5 +1,5 @@
-import { messages } from '../index';
 import { Router, Request, Response } from 'express';
+import { MessageModel } from '../../models/message';
 
 const router = Router();
 
@@ -8,11 +8,15 @@ router.get('/new', (req: Request, res: Response): void => {
 });
 
 router.post('/new', (req: Request, res: Response): void => {
-  messages.push({
-    text: req.body.text,
-    user: req.body.author,
-    added: new Date(),
-  });
+  try {
+    MessageModel.create({
+      author: req.body.author,
+      messageText: req.body.text,
+      added: new Date(),
+    });
+  } catch (err) {
+    console.error(err);
+  }
   res.redirect('/');
 });
 

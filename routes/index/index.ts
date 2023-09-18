@@ -1,24 +1,25 @@
 import { Request, Response, Router } from 'express';
-import { Message } from './types';
-
-const messages: Message[] = [
-  {
-    text: 'Hi there!',
-    user: 'Amando',
-    added: new Date(),
-  },
-  {
-    text: 'Hello World!',
-    user: 'Charles',
-    added: new Date(),
-  },
-];
+import { MessageModel } from '../../models/message';
+import format from 'date-fns/format';
 
 const router = Router();
 
 router.get('/', (req: Request, res: Response) => {
-  res.render('index', { title: 'Mini Messageboard', messages: messages });
+  MessageModel.find()
+    .exec()
+    .then(response => {
+      const messages = response.map(msg => {
+        return {
+          messageText: msg.messageText,
+          author: msg.author,
+          added: format(msg.added, 'LLL do yyyy, p'),
+        };
+      });
+      res.render('index', {
+        title: 'Mini Messageboard',
+        messages: messages,
+      });
+    });
 });
 
 export default router;
-export { messages };
